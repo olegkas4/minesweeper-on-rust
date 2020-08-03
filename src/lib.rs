@@ -159,7 +159,7 @@ impl Game {
         }
     }
 
-    pub fn get_left(&self) -> usize {
+    pub fn count_remaining_cells(&self) -> usize {
         let mut left = self.num_total;
         for i in 0..self.num_rows {
             for j in 0..self.num_cols {
@@ -172,6 +172,6 @@ impl Game {
     }
     
     fn check_won(&self) -> bool {
-        self.get_left() == 0
+        self.count_remaining_cells() == 0
     }
 }
