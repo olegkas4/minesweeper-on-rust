@@ -63,7 +63,7 @@ impl Game {
         }
     }
     
-    fn do_around<F>(&mut self, i:usize, j:usize, action: &mut F)
+    fn walk_around<F>(&mut self, i:usize, j:usize, action: &mut F)
         where F: FnMut(&mut Game, usize, usize, usize, usize) {
         let look_around: Vec<(i8, i8)> = vec![
             (-1, -1), (-1, 0), (-1, 1),
@@ -120,7 +120,7 @@ impl Game {
 
         for i in 0..num_rows {
             for j in 0..num_cols {
-                game.do_around(i, j, &mut Game::count_neighbor)
+                game.walk_around(i, j, &mut Game::count_neighbor)
             }
         }
 
@@ -144,12 +144,13 @@ impl Game {
 
     fn dig(&mut self, i: usize, j: usize){
         self.updated.push((i, j));
+        self.grid[i][j].flagged = false;
         self.grid[i][j].hidden = false;
         if self.grid[i][j].mined {
             self.game_over = true;
             self.victory = false;
         } else if self.grid[i][j].neighbors == 0 {
-            self.do_around(i, j, &mut Game::dig_neighbor)
+            self.walk_around(i, j, &mut Game::dig_neighbor)
         }
 
         if self.check_won() {
