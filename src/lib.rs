@@ -44,7 +44,6 @@ impl Game {
 
     pub fn get_num_rows(&self) -> usize {self.num_rows}
     pub fn get_num_cols(&self) -> usize {self.num_cols}
-    pub fn get_rows(&self) -> &Vec<Vec<GridCell>> {&self.grid}
     pub fn is_over(&self) -> bool {self.game_over}
     pub fn is_victory(&self) -> bool {self.victory}
     pub fn get_cell_state(&self, i:usize, j:usize) -> (bool, bool, bool, u8) {
