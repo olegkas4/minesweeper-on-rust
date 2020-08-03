@@ -59,7 +59,6 @@ impl Game {
     
     fn dig_neighbor(game: &mut Game, i:usize, j:usize, ni:usize, nj:usize) {
         if game.grid[ni as usize][nj as usize].hidden {
-            println!("dig_neighbor: {}, {}, {}, {}", i, j, ni, nj);
             game.dig(ni as usize, nj as usize);
         }
     }
