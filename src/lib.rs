@@ -2,7 +2,7 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 
 #[derive(Debug)]
-pub struct GridCell {
+struct GridCell {
     mined: bool,
     flagged: bool,
     hidden: bool,
@@ -14,19 +14,19 @@ pub struct GridCell {
 impl GridCell {
     fn new(mined: bool, i: u16, j: u16) -> GridCell {
         GridCell {
-            mined: mined,
+            mined,
             flagged: false,
             hidden: true,
             neighbors: 0,
-            i: i,
-            j: j,
+            i,
+            j,
         }
     }
 
     pub fn is_flagged(&self) -> bool { self.flagged }
     pub fn is_hidden(&self) -> bool { self.hidden }
     pub fn is_mined(&self) -> bool { self.mined }
-    pub fn count_neighbors(&self) -> u8 { self.neighbors }
+    pub fn get_neighbors_count(&self) -> u8 { self.neighbors }
 }
 
 pub struct Game {
@@ -36,7 +36,8 @@ pub struct Game {
     num_cols: usize, 
     num_total: usize,
     num_mined: usize,
-    grid: Vec<Vec<GridCell>>
+    grid: Vec<Vec<GridCell>>,
+    updated: Vec<(usize, usize)>
 }
 
 impl Game {
@@ -46,6 +47,10 @@ impl Game {
     pub fn get_rows(&self) -> &Vec<Vec<GridCell>> {&self.grid}
     pub fn is_over(&self) -> bool {self.game_over}
     pub fn is_victory(&self) -> bool {self.victory}
+    pub fn get_cell_state(&self, i:usize, j:usize) -> (bool, bool, bool, u8) {
+        let cell = &self.grid[i][j];
+        (cell.hidden, cell.flagged, cell.mined, cell.neighbors)
+    }
     
     fn count_neighbor(game: &mut Game, i:usize, j:usize, ni:usize, nj:usize) {
         if game.grid[ni as usize][nj as usize].mined {
@@ -107,11 +112,12 @@ impl Game {
         let mut game = Game {
             game_over: false,
             victory: false,
-            num_rows: num_rows, 
-            num_cols: num_cols, 
-            num_total: num_total, 
-            num_mined: num_mined,
-            grid: grid
+            num_rows, 
+            num_cols, 
+            num_total, 
+            num_mined,
+            grid,
+            updated: Vec::with_capacity(num_total)
         };   
 
         for i in 0..num_rows {
@@ -123,13 +129,23 @@ impl Game {
         game
     }
 
-    pub fn toggle_flag(&mut self, i: usize, j: usize) {
+    pub fn toggle_flag(&mut self, i: usize, j: usize)  -> &Vec<(usize, usize)> {
+        self.updated.clear();
         if self.grid[i][j].hidden {
-            self.grid[i][j].flagged = !self.grid[i][j].flagged
+            self.grid[i][j].flagged = !self.grid[i][j].flagged;
+            self.updated.push((i, j));
         }
+        &self.updated
     }
 
-    pub fn dig(&mut self, i: usize, j: usize){
+    pub fn dig_cell(&mut self, i: usize, j: usize) -> &Vec<(usize, usize)> {
+        self.updated.clear();
+        self.dig(i, j);
+        &self.updated
+    }
+
+    fn dig(&mut self, i: usize, j: usize){
+        self.updated.push((i, j));
         self.grid[i][j].hidden = false;
         if self.grid[i][j].mined {
             self.game_over = true;
