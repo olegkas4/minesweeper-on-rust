@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Oleg Kashaev <oleg.kashaev.4@gmail.com>"]
 edition = "2018"
 
+
 [package.metadata.wasm-pack.profile.dev]
 wasm-opt = false
 [package.metadata.wasm-pack.profile.release]
