@@ -26,29 +26,29 @@ The purpose of such 2 layers implementation is to keep actual logic implementati
 - cell_toggle_flag(row, col) - function that sets or removes flag at cell
     - row - row index of a cell to flag
     - col - column index of cell to flag
-    - return value is a list of row and column indexes of cells that changed. row and column indexes should be read in pairs of array values, each even indexed value (0, 2, 4, 6, ...) represents row index, each odd indexed value (1, 3, 5, ...) represents column index, i.e. [cell0_row, cell0_col, cell1_row, cell1_col, ...]. For toggle flag in current implementation return list always has coordinates of only the toggled cell
+    - returned value is a list of row and column indexes of cells that changed. row and column indexes should be read in pairs of array values, each even indexed value (0, 2, 4, 6, ...) represents row index, each odd indexed value (1, 3, 5, ...) represents column index, i.e. [cell0_row, cell0_col, cell1_row, cell1_col, ...]. For toggle flag in current implementation return list always has coordinates of only the toggled cell
 
 
 - cell_dig(row, col) - function that uncovers/digs a cell
-    - row - row index of a cell to flag
-    - col - column index of cell to flag
-    - return value is a list of row and column indexes of cells that changed. row and column indexes should be read in pairs of array values, each even indexed value (0, 2, 4, 6, ...) represents row index, each odd indexed value (1, 3, 5, ...) represents column index, i.e. [cell0_row, cell0_col, cell1_row, cell1_col, ...]. 
+    - row - row index of a cell to dig
+    - col - column index of cell to dig
+    - returned value is a list of row and column indexes of cells that changed. row and column indexes should be read in pairs of array values, each even indexed value (0, 2, 4, 6, ...) represents row index, each odd indexed value (1, 3, 5, ...) represents column index, i.e. [cell0_row, cell0_col, cell1_row, cell1_col, ...]. 
 
 - is_cell_flagged(row, col) - returns true if cell is currently flagged
-    - row - row index of a cell to flag
-    - col - column index of cell to flag
+    - row - row index of a cell to check
+    - col - column index of cell to check
 
 - is_cell_hidden(row, col) - returns true if cell was not yet digged/uncovered
-    - row - row index of a cell to flag
-    - col - column index of cell to flag
+    - row - row index of a cell to check
+    - col - column index of cell to check
 
 - is_cell_mined(row, col) - returns true if cell is mined
-    - row - row index of a cell to flag
-    - col - column index of cell to flag
+    - row - row index of a cell to check
+    - col - column index of cell to check
 
 - count_cell_neighbors(row, col) - returns number of mines surrounding a cell
-    - row - row index of a cell to flag
-    - col - column index of cell to flag
+    - row - row index of a cell to count mined neighbors
+    - col - column index of cell to count mined neighbors
 
 - is_over() - returns true if game is over with user win or lose
 
