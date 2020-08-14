@@ -12,7 +12,7 @@ The purpose of such 2 layers implementation is to keep actual logic implementati
 
 ## MinesweeperBind usage
 
-- MinesweeperBind(num_rows, num_cols, percent_mined) - creates and instance of game
+- MinesweeperBind(num_rows, num_cols, percent_mined) - creates an instance of the game
     - num_rows defines number of rows in new game
     - num_cols defines number of columns in new game
     - percent_mined - float value between 0 and 1 defining portion of mined cells
