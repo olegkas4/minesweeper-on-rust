@@ -32,7 +32,7 @@ The purpose of such 2 layers implementation is to keep actual logic implementati
 - cell_dig(row, col) - function that uncovers/digs a cell
     - row - row index of a cell to dig
     - col - column index of cell to dig
-    - returned value is a list of row and column indexes of cells that changed. row and column indexes should be read in pairs of array values, each even indexed value (0, 2, 4, 6, ...) represents row index, each odd indexed value (1, 3, 5, ...) represents column index, i.e. [cell0_row, cell0_col, cell1_row, cell1_col, ...]. 
+    - returned value is a list of row and column indexes of cells that changed. row and column indexes should be read in pairs of array values, each even indexed value (0, 2, 4, 6, ...) represents row index, each odd indexed value (1, 3, 5, ...) represents column index, i.e. [cell0_row, cell0_col, cell1_row, cell1_col, ...]. It always returns cell been digged. In some cases it can return more then one cell, for example when mined cell is digged and game opens all cells or if digged cell has no mined cells around and game expands open cell area till reaches cells with mined neighbors.
 
 - is_cell_flagged(row, col) - returns true if cell is currently flagged
     - row - row index of a cell to check
